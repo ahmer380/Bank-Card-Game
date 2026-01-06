@@ -10,7 +10,7 @@ class CLI(GameUI):
         print("  - Predict if the next card is LOWER (L) or HIGHER (H)")
         print("  - Correct predictions DOUBLE your bank!")
         print("  - Wrong predictions reset your bank to 0.")
-        print("  - Bank (B) at any time to lock in your score.")
+        print("  - Bank (B) at any time to lock in your score!")
         print("  - Leftover banked points are automatically added to your total score at the end.")
         print(f"  - This deck contains {self.cards_to_deal} cards in total, beat your high score!\n")
         _ = input("Press Enter to start the game... ")

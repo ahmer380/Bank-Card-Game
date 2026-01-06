@@ -42,7 +42,7 @@ class PygameUI(GameUI):
         self.font_title = pygame.font.SysFont("arial", 36)
         self.font_body = pygame.font.SysFont("arial", 22)
         self.font_small = pygame.font.SysFont("arial", 18)
-        self.font_card = pygame.font.SysFont("arial", 28, bold=True)
+        self.font_card = pygame.font.SysFont("arial", 96, bold=True)
 
         #button setup
         w, h = self.size
@@ -88,7 +88,7 @@ class PygameUI(GameUI):
         suit_symbol, suit_colour = suit_symbols[card.suit]
 
         #top-left --> rank
-        self.screen.blit(self.font_small.render(card.rank.symbol, True, suit_colour), (card_rect.x + 10, card_rect.y + 10))
+        self.screen.blit(self.font_title.render(card.rank.symbol, True, suit_colour), (card_rect.x + 10, card_rect.y + 10))
 
         #center --> symbol
         center = self.font_card.render(suit_symbol, True, suit_colour)
@@ -96,8 +96,8 @@ class PygameUI(GameUI):
         self.screen.blit(center, center_rect)
 
         #bottom-right --> rank
-        br = self.font_small.render(card.rank.symbol, True, suit_colour)
-        self.screen.blit(self.font_small.render(card.rank.symbol, True, suit_colour), (card_rect.right - br.get_width() - 10, card_rect.bottom - br.get_height() - 10))
+        br = self.font_title.render(card.rank.symbol, True, suit_colour)
+        self.screen.blit(self.font_title.render(card.rank.symbol, True, suit_colour), (card_rect.right - br.get_width() - 10, card_rect.bottom - br.get_height() - 10))
 
     def draw_buttons(self, hover_pos=None):
         for button in (self.lower_button, self.bank_button, self.higher_button):
@@ -117,11 +117,12 @@ class PygameUI(GameUI):
             self.draw_title("Welcome to Bank!")
             instructions = [
                 "Rules:",
-                "- Predict if the next card is LOWER or HIGHER",
-                "- Correct predictions DOUBLE your bank",
-                "- Wrong predictions reset your bank to 0",
-                "- Bank at any time to lock in your score",
-                f"- Deck contains {self.cards_to_deal} cards in total",
+                "  - Predict if the next card is LOWER or HIGHER",
+                "  - Correct predictions DOUBLE your bank!",
+                "  - Wrong predictions reset your bank to 0.",
+                "  - BANK at any time to lock in your score!",
+                "  - Leftover banked points are automatically added to your total score at the end.",
+                f"  - This deck contains {self.cards_to_deal} cards in total, beat your high score!",
                 "Click anywhere to start",
             ]
 
