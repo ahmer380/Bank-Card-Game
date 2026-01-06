@@ -4,7 +4,7 @@ from card import Card
 from ui import GameUI, GameAction
 
 class CLI(GameUI):
-    def display_welcome(self) -> None:
+    def welcome_user(self) -> None:
         print_title("Welcome to Bank!")
         print("Rules:")
         print("  - Predict if the next card is LOWER (L) or HIGHER (H)")
@@ -15,15 +15,14 @@ class CLI(GameUI):
         print(f"  - This deck contains {self.cards_to_deal} cards in total, beat your high score!\n")
         _ = input("Press Enter to start the game... ")
     
-    def display_game_state(self, current_card, cards_dealt, bank_score, total_score):
-        self.clear_screen()
-        print_title(f"Card {cards_dealt} / {self.cards_to_deal}")
-        print(f"Current Card: {current_card} (Value: {current_card.value})")
-        print(f"Bank Score: {bank_score}")
-        print(f"Total Score: {total_score}")
-
-    def get_action(self) -> GameAction:
+    def get_action_from_game_state(self, current_card, cards_dealt, bank_score, total_score) -> GameAction:
         while True:
+            self.clear_screen()
+            print_title(f"Card {cards_dealt} / {self.cards_to_deal}")
+            print(f"Current Card: {current_card} (Value: {current_card.value})")
+            print(f"Bank Score: {bank_score}")
+            print(f"Total Score: {total_score}")
+
             print("\nWhat's your move?")
             print("  [L]ower - Next card is lower")
             print("  [H]igher - Next card is higher")
@@ -60,27 +59,27 @@ class CLI(GameUI):
 
         _ = input("\nPress Enter to continue... ")
 
-    def display_game_over(self, final_score: int, new_high_score: bool) -> None:
-        self.clear_screen()
-        print_title("Game Over!")
-        print(f"Your Final Score: {final_score}")
-        
-        if new_high_score:
-            print_title("New High Score!")
-
-    def ask_play_again(self) -> bool:
+    def get_user_play_again_from_game_over(self, final_score: int, new_high_score: bool) -> bool:
         while True:
-            choice = input("\nPlay again? (Y/N): ").strip().upper()
-            if choice == 'Y':
-                return True
-            elif choice == 'N':
-                print("\nThanks for playing Bank! Goodbye! \n")
-                return False
-            else:
-                self.handle_error("Invalid input. Please enter Y or N.")
+            self.clear_screen()
+            print_title("Game Over!")
+            print(f"Your Final Score: {final_score}")
+            
+            if new_high_score:
+                print_title("New High Score!")
+
+                choice = input("\nPlay again? (Y/N): ").strip().upper()
+                if choice == 'Y':
+                    return True
+                elif choice == 'N':
+                    print("\nThanks for playing Bank! Goodbye! \n")
+                    return False
+                else:
+                    self.handle_error("Invalid input. Please enter Y or N.")
     
     def handle_error(self, message: str) -> None:
         print(f"\nError: {message}\n")
+        _ = input("Press Enter to continue... ")
 
     def clear_screen(self) -> None:
         os.system('cls' if os.name == 'nt' else 'clear')

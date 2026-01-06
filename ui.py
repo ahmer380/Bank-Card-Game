@@ -13,15 +13,11 @@ class GameUI(ABC):
         self.cards_to_deal = cards_to_deal
 
     @abstractmethod
-    def display_welcome(self) -> None:
+    def welcome_user(self) -> None:
         pass
 
     @abstractmethod
-    def display_game_state(self, current_card: Card, cards_dealt: int, bank_score: int, total_score: int) -> None:
-        pass
-
-    @abstractmethod
-    def get_action(self) -> GameAction:
+    def get_action_from_game_state(self, current_card: Card, cards_dealt: int, bank_score: int, total_score: int) -> GameAction:
         pass
 
     @abstractmethod
@@ -33,9 +29,5 @@ class GameUI(ABC):
         pass
 
     @abstractmethod
-    def display_game_over(self, final_score: int, new_high_score: bool) -> None:
-        pass
-
-    @abstractmethod
-    def ask_play_again(self) -> bool:
+    def get_user_play_again_from_game_over(self, final_score: int, new_high_score: bool) -> bool:
         pass

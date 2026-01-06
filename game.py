@@ -10,23 +10,22 @@ class BankGameEngine:
         self.high_score = 0
 
     def run(self) -> None:
-        self.ui.display_welcome()
+        self.ui.welcome_user()
 
         while True:
             self.play_game()
             new_high_score = self.update_high_score()
-            self.ui.display_game_over(self.total_score, new_high_score)
+            user_play_again = self.ui.get_user_play_again_from_game_over(self.total_score, new_high_score)
 
-            if not self.ui.ask_play_again():
+            if not user_play_again:
                 break
 
     def play_game(self) -> None:
         self.reset_game_state()
 
         while self.cards_dealt <= self.cards_to_deal:
-            self.ui.display_game_state(self.current_card, self.cards_dealt, self.bank_score, self.total_score)
+            action = self.ui.get_action_from_game_state(self.current_card, self.cards_dealt, self.bank_score, self.total_score)
 
-            action = self.ui.get_action()
             if action == GameAction.BANK:
                 self.perform_bank_action()
             else: #prediction_action = HIGHER or LOWER

@@ -111,7 +111,7 @@ class PygameUI(GameUI):
             yield event
 
     #GameUI methods
-    def display_welcome(self) -> None:
+    def welcome_user(self) -> None:
         while True:
             self.draw_title("Welcome to Bank!")
             instructions = [
@@ -137,13 +137,12 @@ class PygameUI(GameUI):
                 if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                     return
 
-    def display_game_state(self, current_card: Card, cards_dealt: int, bank_score: int, total_score: int) -> None:
+    def get_action_from_game_state(self, current_card: Card, cards_dealt: int, bank_score: int, total_score: int) -> GameAction:
         self.game_state["current_card"] = current_card
         self.game_state["cards_dealt"] = cards_dealt
         self.game_state["bank_score"] = bank_score
         self.game_state["total_score"] = total_score
 
-    def get_action(self) -> GameAction:
         while True:
             mouse_pos = pygame.mouse.get_pos()
 
@@ -218,18 +217,23 @@ class PygameUI(GameUI):
                 if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                     return
 
-    def display_game_over(self, final_score: int, new_high_score: bool) -> None:
-        self.draw_game_over_screen(final_score, new_high_score)
-        pygame.display.flip()
-
-    def ask_play_again(self) -> bool:
+    def get_user_play_again_from_game_over(self, final_score: int, new_high_score: bool) -> bool:
         yes_button = Button(pygame.Rect(self.size[0] // 2 - 170, self.size[1] - 100, 150, 48), "Play Again", self.GREEN, (255, 255, 255))
         no_button = Button(pygame.Rect(self.size[0] // 2 + 20, self.size[1] - 100, 150, 48), "Quit", self.RED, (255, 255, 255))
 
         while True:
             mouse_pos = pygame.mouse.get_pos()
             
-            self.draw_game_over_screen(self.game_state["total_score"], False)
+            self.draw_title("Game Over!")
+            score_text = self.font_title.render(f"Final Score: {final_score}", True, self.WHITE)
+            self.screen.blit(score_text, (self.size[0] // 2 - score_text.get_width() // 2, 180))
+
+            if new_high_score:
+                hs = self.font_body.render("New High Score!", True, self.YELLOW)
+                self.screen.blit(hs, (self.size[0] // 2 - hs.get_width() // 2, 240))
+            hint = self.font_small.render("Choose an option below", True, self.GREY)
+            self.screen.blit(hint, (self.size[0] // 2 - hint.get_width() // 2, 280))
+
             yes_button.draw(self.screen, self.font_body, hover=yes_button.contains(mouse_pos))
             no_button.draw(self.screen, self.font_body, hover=no_button.contains(mouse_pos))
 
@@ -242,14 +246,3 @@ class PygameUI(GameUI):
                         return True
                     if no_button.contains(event.pos):
                         return False
-
-    def draw_game_over_screen(self, final_score: int, new_high_score: bool):
-        self.draw_title("Game Over!")
-        score_text = self.font_title.render(f"Final Score: {final_score}", True, self.WHITE)
-        self.screen.blit(score_text, (self.size[0] // 2 - score_text.get_width() // 2, 180))
-
-        if new_high_score:
-            hs = self.font_body.render("New High Score!", True, self.YELLOW)
-            self.screen.blit(hs, (self.size[0] // 2 - hs.get_width() // 2, 240))
-        hint = self.font_small.render("Choose an option below", True, self.GREY)
-        self.screen.blit(hint, (self.size[0] // 2 - hint.get_width() // 2, 280))
