@@ -1,6 +1,6 @@
-from card import Card
-from deck import Deck
-from ui import GameUI, GameAction
+from .card import Card
+from .deck import Deck
+from .ui import GameUI, GameAction
 
 class BankGameEngine:
     def __init__(self, ui: GameUI, cards_to_deal: int):

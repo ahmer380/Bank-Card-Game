@@ -1,7 +1,7 @@
 import pygame
 
-from card import Card, Suit
-from ui import GameUI, GameAction
+from .card import Card, Suit
+from .ui import GameUI, GameAction
 
 class Button:
     def __init__(self, rect: pygame.Rect, label, bg_colour, fg_colour):

@@ -1,7 +1,7 @@
 """No dependency with pygame required"""
 
-from game import BankGameEngine
-from cli_ui import CLI
+from src.game import BankGameEngine
+from src.cli_ui import CLI
 
 CARDS_TO_DEAL = 15 #modify to increase or decrease length of game
 

@@ -1,6 +1,6 @@
 import unittest
 
-from card import Card, Suit, Rank
+from src.card import Card, Suit, Rank
 
 class TestCard(unittest.TestCase):
     def setUp(self):

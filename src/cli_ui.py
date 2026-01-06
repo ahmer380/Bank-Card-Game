@@ -1,7 +1,7 @@
 import os
 
-from card import Card
-from ui import GameUI, GameAction
+from .card import Card
+from .ui import GameUI, GameAction
 
 class CLI(GameUI):
     def welcome_user(self) -> None:

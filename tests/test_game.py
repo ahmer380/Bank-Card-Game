@@ -1,8 +1,8 @@
 import unittest
 
-from game import BankGameEngine
-from card import Card, Suit, Rank
-from ui import GameAction
+from src.game import BankGameEngine
+from src.card import Card, Suit, Rank
+from src.ui import GameAction
 
 class TestBankGameEngine(unittest.TestCase):
     def setUp(self):
