@@ -3,7 +3,7 @@ import os
 from card import Card
 from ui import GameUI, GameAction
 
-class CLIUI(GameUI):
+class CLI(GameUI):
     def display_welcome(self) -> None:
         print_title("Welcome to Bank!")
         print("Rules:")
@@ -42,7 +42,7 @@ class CLIUI(GameUI):
     
     def display_bank_action_outcome(self, amount_banked: int) -> None:
         if amount_banked == 0:
-            print("\nBANKED! But your bank was 0, so no points added.")
+            print("\nBANKED! But your bank was 0, so no points added...")
         else:
             print(f"\nBANKED! Added {amount_banked} to your total score!")
             print(f"Bank reset to 0")

@@ -39,7 +39,3 @@ class GameUI(ABC):
     @abstractmethod
     def ask_play_again(self) -> bool:
         pass
-
-    @abstractmethod
-    def handle_error(self, message: str) -> None:
-        pass
